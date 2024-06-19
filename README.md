@@ -4,7 +4,17 @@ Sandbox for playing around with FastAPI
 
 ## Local Dev
 
-### Setup
+### Docker Setup
+
+You should be able to run the environment in a container. You just need to have Docker installed and then you can try running the following to get started.
+
+```
+docker comose watch
+```
+
+After that completes you can just navigate to http://localhost.
+
+### Local Setup
 
 #### Set up a new virtual environment (optional)
 
