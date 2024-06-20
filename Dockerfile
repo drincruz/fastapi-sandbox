@@ -5,7 +5,7 @@ ENV PORT 8000
 # Set the working directory
 WORKDIR /usr/local/fastapi-sandbox
 
-# Copy the current directory contents into the container at /opt/fastapi-sandbox/
+# Copy the current directory contents into the container at /usr/local/fastapi-sandbox/
 COPY . /usr/local/fastapi-sandbox/
 
 # Install any needed packages specified in requirements.txt
