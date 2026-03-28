@@ -1,6 +1,7 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from database import Hero, SessionDep, create_db_and_tables
 from enum import Enum
-
 
 class ModelName(str, Enum):
     alexnet = "alexnet"
@@ -8,8 +9,20 @@ class ModelName(str, Enum):
     lenet = "lenet"
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
 
+app = FastAPI(lifespan=lifespan)
+
+@app.post('/heroes/')
+def create_hero(hero: Hero, session: SessionDep) -> Hero:
+    session.add(hero)
+    session.commit()
+    session.refresh(hero)
+
+    return hero
 
 @app.get("/")
 async def root():
