@@ -8,8 +8,16 @@ Sandbox for playing around with FastAPI
 
 You should be able to run the environment in a container. You just need to have Docker installed and then you can try running the following to get started.
 
+#### To watch for changes
+
 ```
 docker compose watch
+```
+
+#### To start the container
+
+```
+docker compose up
 ```
 
 After that completes you can just navigate to http://localhost.
