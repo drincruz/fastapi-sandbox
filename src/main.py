@@ -2,6 +2,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from database import Hero, SessionDep, create_db_and_tables
 from enum import Enum
+from sqlmodel import select
+from typing import Sequence
 
 class ModelName(str, Enum):
     alexnet = "alexnet"
@@ -23,6 +25,12 @@ def create_hero(hero: Hero, session: SessionDep) -> Hero:
     session.refresh(hero)
 
     return hero
+
+@app.get('/heroes/')
+def get_heroes(session: SessionDep) -> Sequence[Hero]:
+    heroes = session.exec(select(Hero)).all()
+
+    return heroes
 
 @app.get("/")
 async def root():
