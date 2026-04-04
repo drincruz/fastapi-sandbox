@@ -1,6 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-from database import Hero, SessionDep, create_db_and_tables
+from .database import Hero, SessionDep, create_db_and_tables
 from enum import Enum
 from sqlmodel import select
 from typing import Sequence

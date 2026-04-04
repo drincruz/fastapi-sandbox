@@ -18,4 +18,4 @@ COPY . /usr/local/fastapi-sandbox/
 EXPOSE ${PORT}
 
 # Run src/main.py when the container launches
-CMD ["fastapi", "dev", "src/main.py", "--proxy-headers", "--host", "0.0.0.0"]
+CMD ["fastapi", "dev", "src/app/main.py", "--proxy-headers", "--host", "0.0.0.0"]
