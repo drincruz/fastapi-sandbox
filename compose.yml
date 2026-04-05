@@ -10,6 +10,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: fastapi-server
     develop:
       watch:
         - path: ./src/app/
@@ -29,6 +30,7 @@ services:
       traefik.http.routers.fastapi.rule: Host(`localhost`)
       traefik.http.services.fastapi.loadbalancer.server.port: 8000
   db:
+    container_name: fastapi-db
     image: postgres
     restart: always
     environment:

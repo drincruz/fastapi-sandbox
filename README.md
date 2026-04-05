@@ -22,6 +22,14 @@ docker compose up
 
 After that completes you can just navigate to http://localhost.
 
+#### Running tests
+
+We run `pytest` in the fastapi-server since it is configured properly with all Postgresql environment variables.
+
+```
+docker exec -it fastapi-server pytest
+```
+
 ### Local Setup
 
 #### Set up a new virtual environment (optional)
