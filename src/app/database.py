@@ -4,19 +4,12 @@ from typing import Annotated
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
-class Hero(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    name: str = Field(index=True)
-    age: int | None = Field(default=None, index=True)
-    secret_name: str
-
 POSTGRES_DB = os.getenv('POSTGRES_DB')
 POSTGRES_TEST_DB = os.getenv('POSTGRES_TEST_DB')
 POSTGRES_HOST = os.getenv('POSTGRES_HOST')
 POSTGRES_USER = os.getenv('POSTGRES_USER')
 POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 DB_URL = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:5432/{POSTGRES_DB}'
-TEST_DB_URL = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:5432/{POSTGRES_TEST_DB}'
 
 engine = create_engine(DB_URL)
 

@@ -1,6 +1,7 @@
-from src.app.database import TEST_DB_URL, get_session
+from .conftest import TEST_DB_URL
+from app.database import get_session
+from app.main import app
 from fastapi.testclient import TestClient
-from src.app.main import app
 from sqlmodel import Session, SQLModel, create_engine
 
 
