@@ -4,6 +4,14 @@ Sandbox for playing around with FastAPI
 
 ## Local Dev
 
+### Environment Variables
+
+Copy/paste the .env.template to a new .env file. Update the .env file with values of your choice.
+
+```
+cp .env.template .env
+```
+
 ### Docker Setup
 
 You should be able to run the environment in a container. You just need to have Docker installed and then you can try running the following to get started.
