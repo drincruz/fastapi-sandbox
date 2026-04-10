@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from app.database import SessionDep, create_db_and_tables
 from app.models.hero import Hero
+from app.routers import teams, heroes
 from enum import Enum
 from sqlmodel import select
 from typing import Sequence
@@ -18,6 +19,9 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(lifespan=lifespan)
+
+app.include_router(heroes.router)
+app.include_router(teams.router)
 
 @app.post('/heroes/')
 def create_hero(hero: Hero, session: SessionDep) -> Hero:

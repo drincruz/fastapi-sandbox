@@ -1,7 +1,9 @@
 import os
+from app.models.hero import Hero
+from app.models.team import Team
 from fastapi import Depends
 from typing import Annotated
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlmodel import Session, SQLModel, create_engine
 
 
 POSTGRES_DB = os.getenv('POSTGRES_DB')
