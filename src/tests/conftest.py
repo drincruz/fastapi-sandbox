@@ -1,6 +1,9 @@
 import os
 import pytest
-from sqlmodel import SQLModel, create_engine, text 
+from app.database import get_session
+from app.main import app
+from fastapi.testclient import TestClient
+from sqlmodel import Session, SQLModel, create_engine, text 
 
 POSTGRES_TEST_DB = os.getenv('POSTGRES_TEST_DB')
 POSTGRES_HOST = os.getenv('POSTGRES_HOST')
@@ -15,6 +18,7 @@ test_engine = create_engine(TEST_DB_URL)
 def create_test_db():
     with admin_engine.connect() as connection:
         try:
+            connection.execute(text(f'DROP DATABASE IF EXISTS {POSTGRES_TEST_DB}'))
             connection.execute(
                 text(f'CREATE DATABASE {POSTGRES_TEST_DB}')
             )
@@ -27,3 +31,21 @@ def setup_test_database():
     SQLModel.metadata.create_all(bind=test_engine)
     yield
     SQLModel.metadata.drop_all(bind=test_engine)
+
+@pytest.fixture(name="session")
+def session_fixture():
+    with Session(test_engine) as session:
+        yield session
+
+        session.close()
+
+@pytest.fixture(name="client")
+def client_fixture(session: Session):
+    def get_session_override():
+        return session
+    
+    app.dependency_overrides[get_session] = get_session_override
+
+    client = TestClient(app)
+    yield client
+    app.dependency_overrides.clear()

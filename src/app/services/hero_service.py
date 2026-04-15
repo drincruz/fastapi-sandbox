@@ -9,7 +9,7 @@ def get_all_heroes(session: SessionDep) -> List[dict]:
     statement = select(Hero, Team).join(Team)
     results = session.exec(statement).all()
 
-    response = []
+    response = list()
     for hero, team in results:
         response.append(
             {
