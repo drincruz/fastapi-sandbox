@@ -23,20 +23,6 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(heroes.router)
 app.include_router(teams.router)
 
-@app.post('/heroes/')
-def create_hero(hero: Hero, session: SessionDep) -> Hero:
-    session.add(hero)
-    session.commit()
-    session.refresh(hero)
-
-    return hero
-
-@app.get('/heroes/')
-def get_heroes(session: SessionDep) -> Sequence[Hero]:
-    heroes = session.exec(select(Hero)).all()
-
-    return heroes
-
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
